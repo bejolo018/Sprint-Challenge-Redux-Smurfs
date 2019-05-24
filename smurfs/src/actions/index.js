@@ -7,6 +7,9 @@ import axios from 'axios';
 export const FETCH_DATA = 'FETCH_DATA';
 export const FETCH_DATA_SUCCESS = 'FETCH_DATA_SUCCESS';
 
+export const ADD_SMURF = 'ADD_SMURF';
+export const ADD_SMURF_SUCCESS = 'ADD_SMURF_SUCCESS';
+
 
 export const getData = () => dispatch => {
   dispatch({
@@ -23,6 +26,23 @@ export const getData = () => dispatch => {
     .catch(err => {
       console.log(err)
     });
+}
+
+export const addSmurf = smurf => dispatch => {
+  dispatch({
+    type: ADD_SMURF
+  });
+  axios
+    .post('http://localhost:3333', smurf)
+    .then(res => {
+      dispatch({
+        type: ADD_SMURF_SUCCESS,
+        payload: res.data
+      })
+    })
+    .catch(err => {
+      console.log(err)
+    })
 }
 
 /*

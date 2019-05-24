@@ -46,8 +46,8 @@ handleChanges = e => {
       <div className="App">
         <h1>SMURFS! 2.0 W/ Redux</h1>
         <div className = 'smurfs-container'>
-          {this.state.props.smurfs.map(smurf =>
-          <h3 className='smurf' key= {smurf.id}>{smurf.name}</h3>)}
+          {this.props.smurfs.map(smurf =>
+          <h3 className='smurf' key= {smurf.id}>{smurf.name} {smurf.age} {smurf.height}</h3>)}
         </div>
 
         <div className = 'smurf-form'>

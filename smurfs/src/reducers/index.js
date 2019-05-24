@@ -45,7 +45,8 @@ const rootReducer = (state = intialState, action) => {
           return{
             ...state,
             fetchingSmurfs: false,
-            error: ''
+            smurfs: action.payload,
+            error: '',
           }
       
       case ADD_SMURF:

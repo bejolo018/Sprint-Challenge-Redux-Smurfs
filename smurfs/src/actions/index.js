@@ -11,12 +11,12 @@ export const ADD_SMURF = 'ADD_SMURF';
 export const ADD_SMURF_SUCCESS = 'ADD_SMURF_SUCCESS';
 
 
-export const getData = () => dispatch => {
+export const getSmurfs = () => dispatch => {
   dispatch({
     type: FETCH_DATA
   });
   axios
-    .get('http://localhost:3333')
+    .get('http://localhost:3333/smurfs')
     .then(res => {
       dispatch({
         type: FETCH_DATA_SUCCESS,
@@ -33,7 +33,7 @@ export const addSmurf = smurf => dispatch => {
     type: ADD_SMURF
   });
   axios
-    .post('http://localhost:3333', smurf)
+    .post('http://localhost:3333/smurfs', smurf)
     .then(res => {
       dispatch({
         type: ADD_SMURF_SUCCESS,

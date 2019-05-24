@@ -6,17 +6,86 @@ import './App.css';
  Just remember, `how do I `connect` my components to redux?`
  `How do I ensure that my component links the state to props?`
  */
+import { connect } from 'react-redux';
+import { getSmurfs, addSmurf } from '../actions';
 class App extends Component {
+
+  state = {
+    newSmurf: {
+      name: '',
+      age: '',
+      height: '',
+    }
+  };
+
+  componentDidMount(){
+    this.props.getSmurfs()
+  }
+
+handleChanges = e => {
+  this.setState({
+    newSmurf: {
+      ...this.state.newSmurf,
+      [e.target.name]: e.target.value
+    }
+  })
+}
+
+  addSmurf = e => {
+    e.preventDefault ();
+    this.props.addSmurf(this.state.newSmurf)
+    this.setState({newSmurf: {...this.state.newSmurf,
+      name: '',
+      age: '',
+      height: ''
+    }})
+  };
+
   render() {
     return (
       <div className="App">
         <h1>SMURFS! 2.0 W/ Redux</h1>
-        <div>Welcome to your Redux version of Smurfs!</div>
-        <div>Start inside of your `src/index.js` file!</div>
-        <div>Have fun!</div>
+        <div className = 'smurfs-container'>
+          {this.state.props.smurfs.map(smurf =>
+          <h3 className='smurf' key= {smurf.id}>{smurf.name}</h3>)}
+        </div>
+
+        <div className = 'smurf-form'>
+            <form onSubmit = {this.addSmurf}>
+              <input
+                type='text'
+                name='name'
+                value = {this.state.newSmurf.name}
+                placeholder='name'
+                onChange = {this.handleChanges}
+              />
+
+              <input
+                type='text'
+                name='age'
+                value = {this.state.newSmurf.age}
+                placeholder='age'
+                onChange = {this.handleChanges}
+              />
+
+              <input
+                type='text'
+                name='height'
+                value = {this.state.newSmurf.height}
+                placeholder='height'
+                onChange = {this.handleChanges}
+              />
+              <button type='submit'>Add New Smurf</button>
+            </form>
+        </div>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  smurfs: state.smurfs,
+  error: state.error
+})
+
+export default connect(mapStateToProps, {getSmurfs, addSmurf}) (App);
